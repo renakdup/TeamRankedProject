@@ -1,0 +1,35 @@
+{
+    "name": "renakdup/team-ranked",
+    "description": "The test example of team ranked",
+    "authors": [
+        {
+            "name": "Andrew Pisarevsky",
+            "email": "renakdup@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.1",
+        "pimple/pimple": "~3.0",
+        "tightenco/collect": "^7.12"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.5.5",
+        "phpunit/phpunit": "^9.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "TeamRanked\\providers\\": "src/providers",
+            "TeamRanked\\interfaces\\": "src/interfaces",
+            "TeamRanked\\readers\\": "src/readers",
+            "TeamRanked\\handlers\\": "src/handlers",
+            "TeamRanked\\renders\\": "src/renders",
+            "TeamRanked\\": "src"
+        },
+        "files": []
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs",
+        "phpcbf": "vendor/bin/phpcbf",
+        "phpunit": "vendor/bin/phpunit"
+    }
+}
