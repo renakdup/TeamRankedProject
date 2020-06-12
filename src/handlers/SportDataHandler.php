@@ -15,7 +15,7 @@ class SportDataHandler implements DataHandlerInterface
     private function sortByScores(array $data): array
     {
         usort($data, function ($a, $b) {
-            return $a['scores'] < $b['scores'];
+            return $b['scores'] <=> $a['scores'];
         });
 
         return $data;
