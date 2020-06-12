@@ -38,7 +38,10 @@ class TeamRankedTest extends TestCase
         $teamRanked = new TeamRanked($this->stubDataProvider, $this->parser, $this->handler, $this->render);
         $teamRanked->init();
 
-        self::assertEquals($expected, $teamRanked->getRenderedData());
+        $expected = json_decode($expected);
+        $actual = json_decode($teamRanked->getRenderedData());
+
+        self::assertEquals($expected, $actual);
     }
 
     public function contentSuccessDataProvider()
@@ -55,11 +58,9 @@ class TeamRankedTest extends TestCase
         ];
     }
 
-
     public function testTeamRankedJsonException()
     {
         $rawContent = file_get_contents($this->pathToFixtures . '/example3-fail.txt');
-        $expected = file_get_contents($this->pathToFixtures . '/result1-success.json');
 
         self::expectException(\JsonException::class);
 

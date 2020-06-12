@@ -8,14 +8,14 @@ class SportDataHandler implements DataHandlerInterface
 {
     public function handle(array $data)
     {
-        $dataWithRanks = $this->setDataRanksByScores($data);
-        return $this->sortByRanks($dataWithRanks);
+        $sortedData = $this->sortByScores($data);
+        return $this->setDataRanksByScores($sortedData);
     }
 
-    private function sortByRanks(array $data): array
+    private function sortByScores(array $data): array
     {
         usort($data, function ($a, $b) {
-            return $a['rank'] <=> $b['rank'];
+            return $a['scores'] < $b['scores'];
         });
 
         return $data;
@@ -23,20 +23,25 @@ class SportDataHandler implements DataHandlerInterface
 
     private function setDataRanksByScores(array $data): array
     {
-        $scoresWithRanks = collect($data)
-            ->pluck('scores')
-            ->unique()
-            ->sortDesc()
-            ->values()
-            ->flip()
-            ->all();
+        $dataWithRanks = [];
 
-        return collect($data)
-            ->map(function ($item) use ($scoresWithRanks) {
-                return array_merge([
-                    'rank' => $scoresWithRanks[$item['scores']] + 1
-                ], $item);
-            })
-            ->all();
+        $currentRank = 1;
+        $prevItemScore = null;
+
+        foreach ($data as $item) {
+            if ($prevItemScore !== null && $prevItemScore !== $item['scores']) {
+                $currentRank += 1;
+            }
+
+            $dataWithRanks[] = array_merge(['rank' => $currentRank], $item);
+
+            if ($prevItemScore === $item['scores']) {
+                $currentRank += 1;
+            }
+
+            $prevItemScore = $item['scores'];
+        }
+
+        return $dataWithRanks;
     }
 }

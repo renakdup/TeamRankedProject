@@ -1,1 +1,12 @@
-[{"rank":1,"team":"Axiom","scores":88},{"rank":2,"team":"BnL","scores":65}]
+[
+  {
+    "rank": 1,
+    "team": "Axiom",
+    "scores": 88
+  },
+  {
+    "rank": 2,
+    "team": "BnL",
+    "scores": 65
+  }
+]
